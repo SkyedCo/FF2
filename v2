@@ -174,4 +174,5 @@ end)
 
 Misc:NewButton("Fps Unlocker",function()
    setfpscap(1000)
+   print (" Fps Unlocked ")
 end)
