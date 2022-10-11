@@ -172,10 +172,6 @@ end)
 
 
 
-
-Misc:NewSlider("Uncap FPS Amount",900,1000,1000,function(value)
-        set.fps = value
-        if setfpscap then
-            setfpscap(set.fps)
-        end
-    end)
+Misc:NewButton("Fps Unlocker",function()
+   setfpscap(1000)
+end)
