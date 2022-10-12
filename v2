@@ -176,3 +176,43 @@ Misc:NewButton("Fps Unlocker",function()
    setfpscap(1000)
    print (" Fps Unlocked ")
 end)
+
+
+
+
+Misc:NewButton("No Jump cooldown",function()
+print("no jump cool down enabled!")
+
+--Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+--Humanoid:ChangeState("Jumping")
+local uis = game:GetService("UserInputService")
+local rus = game:GetService("RunService")
+local cd = false
+local held = false
+ 
+uis.InputBegan:Connect(function(k)
+    if k.KeyCode == Enum.KeyCode.Space then
+        held = true
+    end
+end)
+ 
+uis.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Keyboard then
+        if input.KeyCode == Enum.KeyCode.Space then
+            held = false
+        end
+    end
+end)
+ 
+rus.RenderStepped:Connect(function()
+    if held == true and cd == false then
+        if game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Y < 6 then
+            game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid"):ChangeState("Jumping")
+            cd = true
+            wait(0.5)
+            cd = false
+        end
+    end
+end)
+
+end)
