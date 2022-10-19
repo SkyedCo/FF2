@@ -1,8 +1,4 @@
 
-
-
-
-
 local uis = game:GetService("UserInputService")
 
 uis.InputBegan:Connect(function(key, gp)
@@ -15,204 +11,73 @@ end)
 
 
 
+
+
+
+
+
+ lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SkyedCo/FF2/main/ui%20libary%20test"))();
+local tab1 = lib:NewTab("FF2", "")
+tab1:NewSlider("Speed [Q]",1,2,1,function(value)
+   
+ 
     
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/insanedude59/UILib/main/source"))();
-lib:SetTitle("Sky Hub | Private")
+local Player = game:GetService'Players'.LocalPlayer;
+local UIS = game:GetService'UserInputService';
+UIS.InputBegan:connect(function(UserInput)
+        if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Q then
+            _G.Running = true
+                while wait(0.1) and _G.Running == true do
 
-
-
-
-local Mags = lib:NewTab("FF2", "")
-
-
-
-
-
-
-
-
-
--- Mags
-
-local player = game.Players.LocalPlayer
-local rs = game:GetService("RunService")
-
-function magBall(ball)
-   if ball and player.Character then
-       firetouchinterest(player.Character["Left Arm"], ball, 0)
-       firetouchinterest(player.Character["Right Arm"], ball, 0)
-       task.wait()
-       firetouchinterest(player.Character["Left Arm"], ball, 1)
-       firetouchinterest(player.Character["Right Arm"], ball, 1)
-   end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * (value)
 end
-
-Mags:NewToggle("Legit Mags",nil,function(bool)
-shared.Mags = bool
-    rs.Stepped:Connect(function()
-    if shared.Mags and not game:GetService("ReplicatedStorage").Values.HomeQB.Value:match(player.Name) and not game:GetService("ReplicatedStorage").Values.AwayQB.Value:match(player.Name) then
-       for i,v in pairs(workspace:GetChildren()) do
-           if v.Name == "Football" and v:IsA("BasePart") then
-               wait()
-               local mag = (player.Character.Torso.Position - v.Position).Magnitude
-               magBall(v)
-               
-           end
         end
-    else
-        wait()
-      
-    end
-    if shared.Mags and game:GetService("ReplicatedStorage").Values.HomeQB.Value:match(player.Name) or game:GetService("ReplicatedStorage").Values.AwayQB.Value:match(player.Name) then
-        print('Magz Auto-Disabled as QB')
-    end
 end)
-end) 
+UIS.InputEnded:connect(function(UserInput)
+        if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Q then
+                _G.Running = false
+        end
+        end)
+end)
 
 
 
 
--- Blatant Mags
 
 
-Mags:NewButton("Blatant Mags",function()
-local uis = game:GetService('UserInputService')
-local old = nil
 
 
-_G.On = true -- turn to true to turn on, false to turn it off
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+local Player = game:GetService'Players'.LocalPlayer;
+local UIS = game:GetService'UserInputService';
  
-old = hookmetamethod(game, "__index", function(Self, Key)
-        if  not checkcaller() and Self:IsA("BasePart") and Key == "Position" and Self.Name ~= "ReplayBall"  then
-            return Vector3.new(math.random(1,500),math.random(1,500),math.random(1,500))
-                end
-         return old(Self,Key)
-end)
-
-ball = function()
-    for i,v in pairs(workspace:GetChildren()) do
-        if v.Name:match("Football") and v:FindFirstChild("Mesh") then
-            return v
-        end
-    end
-end
-
-uis.InputBegan:Connect(function(key,gp)
-    if gp then return end
-
-    if key.UserInputType == Enum.UserInputType.MouseButton1 then
-        for i = 1,45 do wait()
-        if ball() ~= nil and game:GetService('Players').LocalPlayer.Character:FindFirstChild('Humanoid') and _G.On then
-            ball().CanCollide = false
-            ball().CFrame = CFrame.new(game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Position)
-            ball().Size = Vector3.new(10,10,10)
+_G.JumpHeight = 50;
+ 
+function Action(Object, Function) if Object ~= nil then Function(Object); end end
+ 
+UIS.InputBegan:connect(function(UserInput)
+    if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
+        Action(Player.Character.Humanoid, function(self)
+            if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+                Action(self.Parent.HumanoidRootPart, function(self)
+                    self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
+                end)
             end
-        end
+        end)
     end
 end)
-end)
-
-
-
-
-
-Mags:NewButton("Blatant Mags Off",function()
-local uis = game:GetService('UserInputService')
-local old = nil
-
-
-_G.On = false -- turn to true to turn on, false to turn it off
-
 
  
-old = hookmetamethod(game, "__index", function(Self, Key)
-        if  not checkcaller() and Self:IsA("BasePart") and Key == "Position" and Self.Name ~= "ReplayBall"  then
-            return Vector3.new(math.random(1,500),math.random(1,500),math.random(1,500))
-                end
-         return old(Self,Key)
-end)
-
-ball = function()
-    for i,v in pairs(workspace:GetChildren()) do
-        if v.Name:match("Football") and v:FindFirstChild("Mesh") then
-            return v
-        end
-    end
-end
-
-uis.InputBegan:Connect(function(key,gp)
-    if gp then return end
-
-    if key.UserInputType == Enum.UserInputType.MouseButton1 then
-        for i = 1,45 do wait()
-        if ball() ~= nil and game:GetService('Players').LocalPlayer.Character:FindFirstChild('Humanoid') and _G.On then
-            ball().CanCollide = false
-            ball().CFrame = CFrame.new(game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Position)
-            ball().Size = Vector3.new(10,10,10)
-            end
-        end
-    end
-end)
-end)
-
-
-
--- Misc
-
-
-local Misc = lib:NewTab("Misc", "")
-
-
-Misc:NewButton("Destroy Gui",function()
-    game:GetService("CoreGui"):WaitForChild("ScriptedUI"):Destroy()
-
-end)
-
-
-
-Misc:NewButton("Fps Unlocker",function()
-   setfpscap(1000)
-   print (" Fps Unlocked ")
-end)
-
-
-
-
-Misc:NewButton("No Jump cooldown",function()
-print("no jump cool down enabled!")
-
---Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
---Humanoid:ChangeState("Jumping")
-local uis = game:GetService("UserInputService")
-local rus = game:GetService("RunService")
-local cd = false
-local held = false
- 
-uis.InputBegan:Connect(function(k)
-    if k.KeyCode == Enum.KeyCode.Space then
-        held = true
-    end
-end)
- 
-uis.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.Keyboard then
-        if input.KeyCode == Enum.KeyCode.Space then
-            held = false
-        end
-    end
-end)
- 
-rus.RenderStepped:Connect(function()
-    if held == true and cd == false then
-        if game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Y < 6 then
-            game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid"):ChangeState("Jumping")
-            cd = true
-            wait(0.5)
-            cd = false
-        end
-    end
-end)
-
-end)
